@@ -26,10 +26,6 @@ const Logo = styled(motion.svg)`
   width: 95px;
   height: 25px;
   fill: ${(props) => props.theme.red};
-  path {
-    stroke-width: 6px;
-    stroke: white;
-  }
 `;
 
 const Items = styled.ul`
@@ -162,7 +158,7 @@ function Header() {
         <Search>
           <motion.svg
             onClick={toggleSearch}
-            animate={{ x: searchOpen ? -180 : 0 }}
+            animate={{ x: searchOpen ? -210 : 0 }}
             transition={{type: "linear"}}
             fill="currentColor"
             viewBox="0 0 20 20"
