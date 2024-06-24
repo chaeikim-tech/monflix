@@ -1,7 +1,8 @@
-import { Link, useMatch } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { motion,useAnimation, useScroll } from "framer-motion";
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 const Nav = styled(motion.nav)`
   display: flex;
@@ -46,7 +47,7 @@ const Item = styled.li`
   }
 `;
 
-const Search = styled.span`
+const Search = styled.form`
   color: white;
   display: flex;
   align-items: center;
@@ -103,6 +104,10 @@ const navVariants = {
   },
 };
 
+interface IForm {
+  keyword: string;
+}
+
 
 function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -111,6 +116,12 @@ function Header() {
   const inputAnimation = useAnimation();
   const navAnimation = useAnimation();
   const { scrollY } = useScroll();
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm<IForm>();
+
+  const onValid = (data: IForm) => {
+    navigate(`/search?keyword=${data.keyword}`);
+  }
 
   const toggleSearch = () => {
     if (searchOpen) {
@@ -155,7 +166,7 @@ function Header() {
         </Items>
       </Col>
       <Col>
-        <Search>
+        <Search onSubmit={handleSubmit(onValid)}>
           <motion.svg
             onClick={toggleSearch}
             animate={{ x: searchOpen ? -210 : 0 }}
@@ -171,10 +182,11 @@ function Header() {
             ></motion.path>
           </motion.svg>
           <Input
+            {...register("keyword", { required: true, minLength:2})}
             initial={{scaleX:0}}
             transition={{ type: "linear" }}
             animate={inputAnimation}
-            placeholder="Search for movie or tv show..."
+            placeholder="게임, 시리즈, 영화를 검색하세요..."
           />
         </Search>
       </Col>

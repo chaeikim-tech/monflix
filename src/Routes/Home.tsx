@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { getMovies, IGetMoviesResult } from '../api';
+import { getMovies, getSeries, IGetMoviesResult, IGetSeriesResult } from '../api';
 import { makeImagePath } from '../utils';
 import { styled } from 'styled-components';
 import { motion, AnimatePresence, useScroll } from 'framer-motion';
@@ -18,14 +18,14 @@ const Loader = styled.div`
   align-items: center;
 `;
 
-const Banner = styled.div<{ bgPhoto: string }>`
+const Banner = styled.div<{ bgphoto: string }>`
   height: 100vh;
   display: flex;
   flex-direction:column;
   justify-content:center;
   padding: 60px;
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
-    url(${(props) => props.bgPhoto});
+    url(${(props) => props.bgphoto});
   background-size: cover;
 `;
 
@@ -35,7 +35,7 @@ const Title = styled.h2`
 `;
 
 const Overview = styled.p`
-  font-size: 30px;
+  font-size: 22px;
   width: 50%;
 `;
 
@@ -52,13 +52,13 @@ const Row = styled(motion.div)`
   width: 100%;
 `;
 
-const Box = styled(motion.div)<{bgPhoto: string}>`
+const Box = styled(motion.div)<{bgphoto: string}>`
   background-color: white;
-  background-image: url(${(props) => props.bgPhoto});
+  background-image: url(${(props) => props.bgphoto});
   background-size: cover;
   background-position: center center;
   height: 200px;
-  font-size: 66px;
+  font-size: 60px;
   cursor: pointer;
   &:first-child{
     transform-origin: center left;
@@ -106,13 +106,13 @@ const BigCover = styled.div`
   width: 100%;
   background-size: cover;
   background-position: center center;
-  height: 400px;
+  height: 350px;
 `;
 
 const BigTitle = styled.h3`
   color: ${(props) => props.theme.white.lighter};
   padding: 20px;
-  font-size: 46px;
+  font-size: 40px;
   position: relative;
   top: -80px;
 `;
@@ -168,17 +168,18 @@ function Home() {
   const navigate = useNavigate();
   const { scrollY } = useScroll();
   const bigMovieMatch: PathMatch<string> | null = useMatch("/movies/:movieId");
-  const { data, isLoading } = useQuery<IGetMoviesResult>(["movies", "nowPlaying"], getMovies);
-  console.log(data, isLoading);
+  const { data: movieData, isLoading: isMovieLoading } = useQuery<IGetMoviesResult>(["movies", "nowPlaying"], getMovies);
+  const { data: seriesData, isLoading: isSeriesLoading} = useQuery<IGetSeriesResult>(["series","tvSeries"], getSeries)
+  console.log(movieData, isMovieLoading);
   console.log(bigMovieMatch);
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
 
   const increaseIndex = () => {
-    if (data) {
+    if (movieData) {
       if (leaving) return;
       toggleLeaving();
-      const totalMovies = data.results.length - 1;
+      const totalMovies = movieData.results.length - 1;
       const maxIndex = Math.floor(totalMovies / offset) - 1;
       setIndex((prev) => (prev === maxIndex ? 0 :prev + 1))
 
@@ -194,15 +195,15 @@ function Home() {
   }
 
   const onOverlayClick = () => navigate("/");
-  const clickedMovie = bigMovieMatch?.params.movieId && data?.results.find((movie) => movie.id+"" === bigMovieMatch.params.movieId);
+  const clickedMovie = bigMovieMatch?.params.movieId && movieData?.results.find((movie) => movie.id+"" === bigMovieMatch.params.movieId);
 
   return (
     <Wrapper>
-      {isLoading ? (<Loader>Loading...</Loader>) : (
+      {isMovieLoading ? (<Loader>Loading...</Loader>) : (
         <>
-          <Banner onClick={increaseIndex} bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}>
-            <Title>{data?.results[0].title}</Title>
-            <Overview>{data?.results[0].overview}</Overview>
+          <Banner onClick={increaseIndex} bgphoto={makeImagePath(movieData?.results[0].backdrop_path || "")}>
+            <Title>{movieData?.results[0].title}</Title>
+            <Overview>{movieData?.results[0].overview}</Overview>
           </Banner>
           <Slider>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
@@ -214,7 +215,7 @@ function Home() {
                 transition={{ type: "tween", duration: 1 }}
                 key={index}
               >
-                {data?.results
+                {movieData?.results
                   .slice(1)
                   .slice(offset * index, offset * index + offset)
                   .map((movie) => (
@@ -226,7 +227,7 @@ function Home() {
                       variants={boxVariants}
                       onClick = {() => onBoxClicked(movie.id)}
                       transition={{type: "tween"}}
-                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
+                      bgphoto={makeImagePath(movie.backdrop_path, "w500")}
                     >
                       <Info variants={infoVariants}>
                         <h4>{movie.title}</h4>
