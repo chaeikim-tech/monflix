@@ -9,7 +9,7 @@ function App() {
   const paths = ["/", "/movies/:movieId"]
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Header />
       <Routes>
         <Route path="/movie" element={<Movie />} />
