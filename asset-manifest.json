@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "https://chaeikim-tech.github.io/monflix/static/js/main.e7043ebf.js",
-    "index.html": "https://chaeikim-tech.github.io/monflix/index.html",
-    "main.e7043ebf.js.map": "https://chaeikim-tech.github.io/monflix/static/js/main.e7043ebf.js.map"
+    "main.js": "/monflix/static/js/main.357be0f4.js",
+    "index.html": "/monflix/index.html",
+    "main.357be0f4.js.map": "/monflix/static/js/main.357be0f4.js.map"
   },
   "entrypoints": [
-    "static/js/main.e7043ebf.js"
+    "static/js/main.357be0f4.js"
   ]
 }
