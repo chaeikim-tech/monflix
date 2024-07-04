@@ -3,11 +3,10 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { RecoilRoot } from 'recoil';
-import { ThemeProvider, createGlobalStyle } from 'styled-components'; 
-import {theme} from "./theme";
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import { theme } from "./theme";
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -39,6 +38,7 @@ footer, header, hgroup, main, menu, nav, section {
 }
 body {
   line-height: 1;
+  overflow-x: hidden;
 }
 menu, ol, ul {
   list-style: none;
@@ -59,8 +59,10 @@ table {
   box-sizing: border-box;
 }
 body {
-  font-weight: 300;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
   background-color: black;
   color:${(props) => props.theme.white.darker};
   line-height: 1.2;
@@ -82,9 +84,9 @@ root.render(
     <RecoilRoot>
       <QueryClientProvider client={client}>
         <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <App />
-      </ThemeProvider>
+          <GlobalStyle />
+          <App />
+        </ThemeProvider>
       </QueryClientProvider>
     </RecoilRoot>
   </React.StrictMode>

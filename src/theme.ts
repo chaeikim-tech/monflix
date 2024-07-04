@@ -11,4 +11,8 @@ export const theme: DefaultTheme = {
     lighter: "#fff",
     darker: "#e5e5e5",
   },
+  gray: {
+    lighter: "#686D76",
+    darker: "#373A40",
+  }
 };

@@ -3,6 +3,7 @@ import Header from "./Components/Header";
 import Home from "./Routes/Home";
 import Search from "./Routes/Search";
 import Tv from "./Routes/Tv";
+import Movie from "./Routes/Movie";
 
 function App() {
   const paths = ["/", "/movies/:movieId"]
@@ -11,6 +12,7 @@ function App() {
     <Router>
       <Header />
       <Routes>
+        <Route path="/movie" element={<Movie />} />
         <Route path="/tv" element={<Tv />} />
         <Route path="/search" element={<Search />} />
         {paths.map((path) => (
