@@ -5,6 +5,8 @@ import App from './App';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { theme } from "./theme";
+import { BrowserRouter } from "react-router-dom";
+
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -85,7 +87,9 @@ root.render(
       <QueryClientProvider client={client}>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <App />
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <App />
+          </BrowserRouter>
         </ThemeProvider>
       </QueryClientProvider>
     </RecoilRoot>

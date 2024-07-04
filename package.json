@@ -2,6 +2,7 @@
   "name": "monflix",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://chaeikim-tech.github.io/monflix/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -12,6 +13,7 @@
     "@types/react-dom": "^18.3.0",
     "@types/styled-components": "^5.1.34",
     "framer-motion": "^11.2.10",
+    "gh-pages": "^6.1.1",
     "node-fetch": "^2.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -29,7 +31,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
