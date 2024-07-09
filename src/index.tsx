@@ -55,6 +55,9 @@ table {
 * {
   box-sizing: border-box;
 }
+body,html {
+  overflow-x:hidden;
+}
 body {
   font-weight: 400;
   font-style: normal;
@@ -63,7 +66,6 @@ body {
   background-color: black;
   color:${(props) => props.theme.white.darker};
   line-height: 1.2;
-  overflow-x: hidden !important;
 }
 a {
   text-decoration:none;

@@ -185,8 +185,6 @@ function Home() {
   const { scrollY } = useScroll();
   const bigMovieMatch: PathMatch<string> | null = useMatch("/:category/:movieId");
   const { data: movieData, isLoading: isMovieLoading } = useQuery<IGetMoviesResult>(["movie", "nowPlaying"], fetchTrendingAll);
-  console.log(movieData, isMovieLoading);
-  console.log(bigMovieMatch);
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
 
@@ -254,7 +252,7 @@ function Home() {
                       bgphoto={makeImagePath(movie.poster_path, "w500")}
                     >
                       <Info variants={infoVariants}>
-                        <h4>{movie.title}</h4>
+                        <h4>{movie.title || movie.name}</h4>
                       </Info>
 
                     </Box>
