@@ -37,10 +37,6 @@ footer, header, hgroup, main, menu, nav, section {
 *[hidden] {
     display: none;
 }
-body {
-  line-height: 1;
-  overflow-x: hidden;
-}
 menu, ol, ul {
   list-style: none;
 }
@@ -67,7 +63,7 @@ body {
   background-color: black;
   color:${(props) => props.theme.white.darker};
   line-height: 1.2;
-  
+  overflow-x: hidden !important;
 }
 a {
   text-decoration:none;

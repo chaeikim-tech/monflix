@@ -12,13 +12,13 @@ const Nav = styled(motion.nav)`
   width: 100vw;
   top: 0;
   background-color: black;
-  font-size: 14px;
+  font-size: 1rem;
   padding: 20px 60px;
   color: white;
   z-index: 98;
   @media only screen and (max-width: 600px) {
     padding: 15px 25px; 
-    font-size: 12px;
+    font-size: 0.6rem;
   }
 `;
 

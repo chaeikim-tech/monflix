@@ -33,13 +33,16 @@ const CardTitle = styled.div`
 
 function Card({ data, category }: { data: IData; category?: "movie" | "tv" }) {
   const title = data.name || data.title;
-  const linkTo = category || data.media_type;
+  const mediaType = category || data.media_type;
+  console.log(data)
   return (
     <Container>
-      <CardPoster
-        image_url={makeImagePath(data.poster_path, "w500")}
-      ></CardPoster>
-      <CardTitle>{title}</CardTitle>
+      <Link to={`/${mediaType}/${data.id}`}>
+        <CardPoster
+          image_url={makeImagePath(data.poster_path, "w500")}
+        ></CardPoster>
+        <CardTitle>{title}</CardTitle>
+      </Link>
     </Container>
   );
 }

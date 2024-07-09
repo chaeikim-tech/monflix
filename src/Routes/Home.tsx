@@ -1,11 +1,13 @@
 import { useQuery } from 'react-query';
-import { getMovies, IGetMoviesResult, ITrendMoviesResult, fetchTrendingTv, fetchTrendingMovie } from '../api';
+import { fetchTrendingAll, IGetMoviesResult, ITrendMoviesResult, fetchTrendingTv, fetchTrendingMovie } from '../api';
 import { makeImagePath } from '../utils';
 import { styled } from 'styled-components';
 import { motion, AnimatePresence, useScroll } from 'framer-motion';
 import { useState } from 'react';
 import { useNavigate, useMatch, PathMatch } from 'react-router-dom';
 import SliderTemplate from '../Components/SliderTemplate';
+import { ImCancelCircle } from "react-icons/im";
+
 
 const Wrapper = styled.div`
   background: black;
@@ -110,6 +112,7 @@ const BigMovie = styled(motion.div)`
   background-color: ${(props) => props.theme.black.lighter};
 `;
 
+
 const BigCover = styled.div`
   width: 100%;
   height: 30vw;
@@ -180,8 +183,8 @@ const offset = 6;
 function Home() {
   const navigate = useNavigate();
   const { scrollY } = useScroll();
-  const bigMovieMatch: PathMatch<string> | null = useMatch("/movies/:movieId");
-  const { data: movieData, isLoading: isMovieLoading } = useQuery<IGetMoviesResult>(["movies", "nowPlaying"], getMovies);
+  const bigMovieMatch: PathMatch<string> | null = useMatch("/movie/:movieId");
+  const { data: movieData, isLoading: isMovieLoading } = useQuery<IGetMoviesResult>(["movie", "nowPlaying"], fetchTrendingAll);
   console.log(movieData, isMovieLoading);
   console.log(bigMovieMatch);
   const [index, setIndex] = useState(0);
@@ -208,7 +211,7 @@ function Home() {
   const toggleLeaving = () => setLeaving((prev) => !prev);
 
   const onBoxClicked = (movieId: number) => {
-    navigate(`/movies/${movieId}`)
+    navigate(`/movie/${movieId}`)
   }
 
   const onOverlayClick = () => navigate("/");
