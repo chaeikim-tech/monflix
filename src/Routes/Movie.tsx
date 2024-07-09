@@ -21,7 +21,6 @@ function Movie() {
         ["topMovies", "currentTopMovies"], fetchTopMovies
     );
 
-    console.log(popularMoviesData)
     return (
         <Wrapper>
             <SliderTemplate isLoading={isPlayingMoviesLoading}

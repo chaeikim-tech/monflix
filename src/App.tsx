@@ -8,7 +8,7 @@ import CardDetail from "./Components/CardDetail";
 
 function App() {
   //const paths = ["/", "/movies/:movieId"]
-  const detailPaths = ["/movie/:mediaId", "/tv/:mediaId"]
+  const detailPaths = ["/movie/:mediaId", "/tv/:mediaId", "/:category/:movieId"]
 
   return (
     <Router basename={process.env.PUBLIC_URL}>

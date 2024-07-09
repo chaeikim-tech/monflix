@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { IData } from "../api";
 import { makeImagePath } from "../utils";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import React from 'react';
 
 const Container = styled.div`
@@ -32,12 +32,12 @@ const CardTitle = styled.div`
 `;
 
 function Card({ data, category }: { data: IData; category?: "movie" | "tv" }) {
+  const location = useLocation();
   const title = data.name || data.title;
-  const mediaType = category || data.media_type;
-  console.log(data)
+  const detailRoute = data.media_type || location.pathname;
   return (
     <Container>
-      <Link to={`/${mediaType}/${data.id}`}>
+      <Link to={`${detailRoute}/${data.id}`}>
         <CardPoster
           image_url={makeImagePath(data.poster_path, "w500")}
         ></CardPoster>

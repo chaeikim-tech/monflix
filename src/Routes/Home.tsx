@@ -183,7 +183,7 @@ const offset = 6;
 function Home() {
   const navigate = useNavigate();
   const { scrollY } = useScroll();
-  const bigMovieMatch: PathMatch<string> | null = useMatch("/movie/:movieId");
+  const bigMovieMatch: PathMatch<string> | null = useMatch("/:category/:movieId");
   const { data: movieData, isLoading: isMovieLoading } = useQuery<IGetMoviesResult>(["movie", "nowPlaying"], fetchTrendingAll);
   console.log(movieData, isMovieLoading);
   console.log(bigMovieMatch);
@@ -208,11 +208,15 @@ function Home() {
     ["trendMovie", "trendingMovie"], fetchTrendingMovie
   );
 
+
   const toggleLeaving = () => setLeaving((prev) => !prev);
 
-  const onBoxClicked = (movieId: number) => {
-    navigate(`/movie/${movieId}`)
+  const onBoxClicked = (category?: string, movieId?: number) => {
+    navigate(`/${category}/${movieId}`)
   }
+
+
+  //const onBoxClicked = (movieId: number) => navigate(`/movie/${movieId}`)
 
   const onOverlayClick = () => navigate("/");
   const clickedMovie = bigMovieMatch?.params.movieId && movieData?.results.find((movie) => movie.id + "" === bigMovieMatch.params.movieId);
@@ -245,7 +249,7 @@ function Home() {
                       whileHover="hover"
                       initial="normal"
                       variants={boxVariants}
-                      onClick={() => onBoxClicked(movie.id)}
+                      onClick={() => onBoxClicked(movie.media_type, movie.id)}
                       transition={{ type: "tween" }}
                       bgphoto={makeImagePath(movie.poster_path, "w500")}
                     >
@@ -258,7 +262,7 @@ function Home() {
               </Row>
             </AnimatePresence>
           </Slider>
-          <AnimatePresence>
+          {/* <AnimatePresence>
             {bigMovieMatch ? (
               <>
                 <Overlay
@@ -288,7 +292,7 @@ function Home() {
                 </BigMovie>
               </>
             ) : null}
-          </AnimatePresence>
+          </AnimatePresence> */}
         </>
       )}
       {/* <SliderForm /> */}

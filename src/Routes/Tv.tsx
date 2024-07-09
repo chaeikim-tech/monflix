@@ -4,6 +4,7 @@ import SliderTemplate from '../Components/SliderTemplate';
 import { fetchTopTV, fetchPopularTv, fetchAirTv, ITrendMoviesResult } from '../api';
 import { useQuery } from 'react-query';
 
+
 const Wrapper = styled.div`
     background: black;
     margin-top: 80px;
@@ -20,12 +21,15 @@ function Tv() {
     ["airTv", "currentAirTv"], fetchAirTv
   );
 
+
+
   return (
     <Wrapper>
       <SliderTemplate isLoading={isTopTvLoading}
         data={topTvData?.results.slice(0, 20)!}
         title="TV shows ordered by rating"
-        category="tv" />
+        category="tv"
+      />
       <SliderTemplate isLoading={isPopularTvLoading}
         data={popularTvData?.results.slice(0, 20)!}
         title="list of TV shows ordered by popularity"

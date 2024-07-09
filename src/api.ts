@@ -20,7 +20,7 @@ export interface IData {
   name?: string;
   vote_average: number;
   adult?: boolean;
-  media_type?: "movie" | "tv";
+  media_type?: string;
 }
 
 interface ISeries {
@@ -132,14 +132,8 @@ export function fetchAirTv() {
 
 //Detail
 
-/* export function fetchDetail({ category, id }: { category: "movie" | "tv"; id: string; }) {
-  return fetch(`${BASE_PATH}/${category}/${id}?language=ko-KR`, options).then()
-    .then((response) => response.json());
-}
- */
-
-export function fetchDetail({ category, id }: { category: string; id: string; }) {
-  return fetch(`${BASE_PATH}/${category}/${id}?language=ko-KR`, options)
+export function fetchDetail(prop: string) {
+  return fetch(`${BASE_PATH}${prop}?language=ko-KR`, options)
     .then((response) => response.json());
 }
 
