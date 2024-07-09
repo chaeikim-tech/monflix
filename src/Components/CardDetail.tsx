@@ -113,7 +113,7 @@ function CardDetail() {
           image_url={makeImagePath(detailData?.backdrop_path || "", "original")}
         >
           <PlayerInfo>
-            <InfoTitle>{detailData?.title}</InfoTitle>
+            <InfoTitle>{detailData?.title || detailData?.name}</InfoTitle>
             <InfoCaption>{detailData?.tagline}</InfoCaption>
             <InfoOverview>{detailData?.overview}</InfoOverview>
             <Link to="/">

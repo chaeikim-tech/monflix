@@ -67,6 +67,7 @@ export interface IMovieDetail {
   release_date: string;
   title: string;
   tagline: string;
+  name: string;
 }
 
 //Home
